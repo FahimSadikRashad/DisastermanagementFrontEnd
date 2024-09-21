@@ -6,6 +6,7 @@ import { DonationProvider } from './context/DonationContext'; // Import the prov
 import { useRouter } from 'next/navigation'; // Correctly import useRouter
 import Navbar from './components/Navbar'; // Import Navbar
 import Footer from './components/Footer'; // Import Footer
+import { AdminProvider } from './context/AdminContext';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,6 +33,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
       >
+        <AdminProvider>
+
         <DonationProvider>
           {/* Conditionally render Navbar */}
           {!noHeaderFooterRoutes.includes(router.pathname) && <Navbar />}
@@ -43,6 +46,7 @@ export default function RootLayout({ children }) {
           {/* Conditionally render Footer */}
           {!noHeaderFooterRoutes.includes(router.pathname) && <Footer />}
         </DonationProvider>
+        </AdminProvider>
       </body>
     </html>
   );

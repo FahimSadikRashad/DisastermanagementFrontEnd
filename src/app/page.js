@@ -3,6 +3,7 @@ import CrisisSection from './components/CrisisSection';
 import VolunteerSection from './components/VolunteerSection';
 import MottoSection from './components/MottoSection'; 
 
+
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">

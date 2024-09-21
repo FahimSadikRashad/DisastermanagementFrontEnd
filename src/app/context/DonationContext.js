@@ -2,6 +2,7 @@
 "use client";
 
 import React, { createContext, useState, useEffect } from 'react';
+import { generateCSV } from '../utils/csvGenerator';
 
 export const DonationContext = createContext();
 
@@ -29,8 +30,17 @@ export const DonationProvider = ({ children }) => {
 
   const totalDonations = donationData.reduce((sum, item) => sum + item.donations, 0);
 
+  const generateReport = () => {
+    const reportData = donationData.map(item => ({
+      Day: item.name,
+      Donations: item.donations,
+      Expenses: item.expenses,
+    }));
+    generateCSV(reportData, 'Daily_Report.csv');
+  };
+
   return (
-    <DonationContext.Provider value={{ donationData, totalDonations }}>
+    <DonationContext.Provider value={{ donationData, totalDonations , generateReport }}>
       {children}
     </DonationContext.Provider>
   );
