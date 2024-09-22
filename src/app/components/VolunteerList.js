@@ -9,7 +9,7 @@ export default function VolunteerList() {
       <h2 className="text-2xl font-semibold mb-4">List of Volunteers</h2>
 
       {/* Volunteer List with Scroll */}
-      <div className="overflow-y-auto flex-grow max-h-60">
+      <div className="overflow-y-auto flex-grow max-h-[550px]">
         <ul className="space-y-4">
           {volunteers.map(volunteer => (
             <li key={volunteer.id} className="border p-4 rounded-lg">

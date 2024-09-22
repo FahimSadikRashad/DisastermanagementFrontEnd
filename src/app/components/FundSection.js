@@ -27,11 +27,14 @@ export default function FundSection() {
       ref={ref}
       initial={{ opacity: 0, y: 50 }}
       animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.8, ease: 'easeInOut' }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
       className="bg-white shadow-lg p-8 rounded-lg mb-12"
     >
       <h2 className="text-3xl font-bold mb-4">Donation Fund</h2>
-      <p className="text-lg mb-4">Total donations: <span className="font-bold text-blue-600">${totalDonations}</span></p>
+      <p className="text-lg mb-4">
+        Total donations:{" "}
+        <span className="font-bold text-blue-600">${totalDonations}</span>
+      </p>
 
       <div className="h-64 mb-6">
         <ResponsiveContainer>
@@ -45,13 +48,15 @@ export default function FundSection() {
           </BarChart>
         </ResponsiveContainer>
       </div>
-
-      <a
-        href="/donation"
-        className="mt-4 inline-block text-white bg-blue-500 px-6 py-3 rounded-full font-medium hover:bg-blue-600 transition-colors duration-300"
-      >
-        View Donation Details &raquo;
-      </a>
+      
+      <div className="text-center mt-8">
+        <a
+          href="/donation"
+          className="mt-4 inline-block text-white bg-blue-500 px-6 py-3 rounded-full font-medium hover:bg-blue-600 transition-colors duration-300"
+        >
+          View Donation Details &raquo;
+        </a>
+      </div>
     </motion.section>
   );
 }

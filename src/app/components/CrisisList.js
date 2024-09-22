@@ -1,10 +1,21 @@
 "use client";
 import { useCrisisContext } from '../context/CrisisContext';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useEffect } from 'react';
 
 export default function CrisisList() {
-  const { crises, approveCrisis } = useCrisisContext();
+  const { crises, approveCrisis, loading } = useCrisisContext();
   const [filter, setFilter] = useState({ severity: '', status: '', type: '', date: '' });
+  const { isLoggedIn } = useAuth();
+  // const [filter, setFilter] = useState({ severity: '', status: '', type: '', date: '' });
+  const [userRole, setUserRole] = useState(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const role = JSON.parse(localStorage.getItem('user'))?.role;
+      setUserRole(role);
+    }
+  }, []);
 
   const filteredCrises = crises.filter(crisis => 
     (filter.severity ? crisis.severity === filter.severity : true) &&
@@ -13,12 +24,15 @@ export default function CrisisList() {
     (filter.date ? crisis.date === filter.date : true)
   );
 
+  if (loading) return <p>Loading crises...</p>;
+
   return (
     <div className="bg-white shadow-md p-6 rounded-lg flex-grow flex flex-col">
       <h2 className="text-2xl font-semibold mb-4">List of Crises</h2>
 
       {/* Filters */}
       <div className="flex gap-4 mb-4">
+        {/* Severity Filter */}
         <div>
           <label className="block text-sm font-bold mb-2">Severity Filter</label>
           <select 
@@ -32,6 +46,7 @@ export default function CrisisList() {
             <option value="High">High</option>
           </select>
         </div>
+        {/* Status Filter */}
         <div>
           <label className="block text-sm font-bold mb-2">Status Filter</label>
           <select 
@@ -44,6 +59,7 @@ export default function CrisisList() {
             <option value="Pending">Pending</option>
           </select>
         </div>
+        {/* Type Filter */}
         <div>
           <label className="block text-sm font-bold mb-2">Type Filter</label>
           <select 
@@ -56,6 +72,7 @@ export default function CrisisList() {
             <option value="Humanitarian Crisis">Humanitarian Crisis</option>
           </select>
         </div>
+        {/* Date Filter */}
         <div>
           <label className="block text-sm font-bold mb-2">Date Filter</label>
           <input
@@ -68,7 +85,7 @@ export default function CrisisList() {
       </div>
 
       {/* Crisis List with Scroll */}
-      <div className="overflow-y-auto flex-grow max-h-60">
+      <div className="overflow-y-auto flex-grow max-h-[510px]">
         <ul className="space-y-4">
           {filteredCrises.map(crisis => (
             <li key={crisis.id} className="border p-4 rounded-lg">
@@ -78,7 +95,7 @@ export default function CrisisList() {
               <p>Status: {crisis.status}</p>
               <p>Date: {crisis.date}</p>
               <p>Type: {crisis.type}</p>
-              {crisis.status === 'Pending' && (
+              {crisis.status === 'Pending' && userRole === 'Admin' && (
                 <button onClick={() => approveCrisis(crisis.id)} className="text-blue-500">
                   Approve Crisis
                 </button>

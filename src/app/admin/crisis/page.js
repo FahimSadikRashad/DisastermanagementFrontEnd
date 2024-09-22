@@ -1,10 +1,10 @@
 "use client";
 
 import React from 'react';
-import { useAdminContext } from '../../context/AdminContext';
+import { useCrisisContext } from '../../context/CrisisContext';
 
 const CrisisPage = () => {
-  const { crises, approveCrisis, changeSeverity, declineCrisis } = useAdminContext();
+  const { crises, approveCrisis, changeSeverity, declineCrisis } = useCrisisContext();
 
   return (
     <div className="container mx-auto p-6">

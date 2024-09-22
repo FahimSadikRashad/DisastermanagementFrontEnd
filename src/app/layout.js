@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar"; // Import Navbar
 import Footer from "./components/Footer"; // Import Footer
 import { AdminProvider } from "./context/AdminContext";
 import { AuthProvider } from "./context/AuthContext";
+import { CrisisProvider } from "./context/CrisisContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,7 +36,10 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
       >
         <AuthProvider>
+
           <AdminProvider>
+            <CrisisProvider>
+
             <DonationProvider>
               {/* Conditionally render Navbar */}
               {!noHeaderFooterRoutes.includes(router.pathname) && <Navbar />}
@@ -45,6 +49,7 @@ export default function RootLayout({ children }) {
               {/* Conditionally render Footer */}
               {!noHeaderFooterRoutes.includes(router.pathname) && <Footer />}
             </DonationProvider>
+            </CrisisProvider>
           </AdminProvider>
         </AuthProvider>
       </body>

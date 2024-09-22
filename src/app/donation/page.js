@@ -19,7 +19,7 @@ export default function DonationPage() {
   const { donationData, totalDonations } = useContext(DonationContext);
 
   return (
-    <div className="flex flex-col lg:flex-row gap-10 h-[calc(100vh-80px)] container mx-auto p-6"> {/* Use calc for height */}
+    <div className="flex flex-col lg:flex-row gap-10 container mx-auto p-6"> {/* Use calc for height */}
       
       {/* Left: Bar chart section */}
       <motion.section
@@ -31,7 +31,7 @@ export default function DonationPage() {
         <h2 className="text-3xl font-bold mb-4">
           Daily Donations and Expenses
         </h2>
-        <div className="h-full mb-6"> {/* Full height */}
+        <div className="h-5/6 mb-6"> {/* Full height */}
           <ResponsiveContainer width="100%" height="100%"> {/* Make the chart fill available space */}
             <BarChart data={donationData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -58,7 +58,7 @@ export default function DonationPage() {
         </div>
 
         {/* Transaction List */}
-        <div className="bg-white shadow-lg p-6 rounded-lg flex-grow overflow-y-auto max-h-[300px]"> {/* Scrollable and limited height */}
+        <div className="bg-white shadow-lg p-6 rounded-lg flex-grow max-h-[400px]"> {/* Scrollable and limited height */}
           <TransactionList donationData={donationData} />
         </div>
       </div>
