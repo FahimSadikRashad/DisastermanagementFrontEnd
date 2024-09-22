@@ -2,12 +2,12 @@
 
 export default function MottoSection() {
   return (
-    <section className="relative bg-200 py-24"> {/* Increased padding for height */}
+    <section className="relative bg-200 py-24 min-h-screen"> {/* Increased padding for height */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-30"
         style={{
           backgroundImage: "url('https://c7.alamy.com/comp/WBC69T/sengkol-lombok-indonesia-september-20-2017-four-preschool-aged-children-posing-in-rural-indonesian-village-WBC69T.jpg')",
-          inset: '-101px' // Adjusting the inset to -101 for the image
+          inset: '0px' 
         }}
       />
       <div className="relative z-5 container mx-auto p-12 text-center"> {/* Increased padding for text section */}

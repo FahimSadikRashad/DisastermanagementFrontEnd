@@ -2,11 +2,12 @@
 
 import localFont from "next/font/local";
 import "./styles/globals.css";
-import { DonationProvider } from './context/DonationContext'; // Import the provider 
-import { useRouter } from 'next/navigation'; // Correctly import useRouter
-import Navbar from './components/Navbar'; // Import Navbar
-import Footer from './components/Footer'; // Import Footer
-import { AdminProvider } from './context/AdminContext';
+import { DonationProvider } from "./context/DonationContext"; // Import the provider
+import { useRouter } from "next/navigation"; // Correctly import useRouter
+import Navbar from "./components/Navbar"; // Import Navbar
+import Footer from "./components/Footer"; // Import Footer
+import { AdminProvider } from "./context/AdminContext";
+import { AuthProvider } from "./context/AuthContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,27 +27,26 @@ const geistMono = localFont({
 
 export default function RootLayout({ children }) {
   const router = useRouter(); // Access router object
-  const noHeaderFooterRoutes = ['/login', '/register']; // Define routes without header/footer
+  const noHeaderFooterRoutes = ["/login", "/register"]; // Define routes without header/footer
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
       >
-        <AdminProvider>
+        <AuthProvider>
+          <AdminProvider>
+            <DonationProvider>
+              {/* Conditionally render Navbar */}
+              {!noHeaderFooterRoutes.includes(router.pathname) && <Navbar />}
 
-        <DonationProvider>
-          {/* Conditionally render Navbar */}
-          {!noHeaderFooterRoutes.includes(router.pathname) && <Navbar />}
-          
-          <main className="flex flex-col min-h-screen">
-            {children}
-          </main>
-          
-          {/* Conditionally render Footer */}
-          {!noHeaderFooterRoutes.includes(router.pathname) && <Footer />}
-        </DonationProvider>
-        </AdminProvider>
+              <main className="flex flex-col min-h-screen">{children}</main>
+
+              {/* Conditionally render Footer */}
+              {!noHeaderFooterRoutes.includes(router.pathname) && <Footer />}
+            </DonationProvider>
+          </AdminProvider>
+        </AuthProvider>
       </body>
     </html>
   );
